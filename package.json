@@ -1,0 +1,22 @@
+{
+  "name": "cypress-practice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lenalemo8/cypress-practice.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lenalemo8/cypress-practice/issues"
+  },
+  "homepage": "https://github.com/lenalemo8/cypress-practice#readme",
+  "description": "",
+  "devDependencies": {
+    "cypress": "^14.4.0"
+  }
+}
