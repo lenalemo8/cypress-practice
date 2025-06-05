@@ -17,6 +17,6 @@
   "homepage": "https://github.com/lenalemo8/cypress-practice#readme",
   "description": "",
   "devDependencies": {
-    "cypress": "^14.4.0"
+    "cypress": "^14.4.1"
   }
 }
