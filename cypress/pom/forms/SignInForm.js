@@ -26,7 +26,7 @@ class SignInForm {
     }
 
 
-    enterEmail(mail) {
+    enterEmail(email) {
         this.emailField.type(email);
     }
     enterPassword(password) {
@@ -41,6 +41,29 @@ class SignInForm {
         this.enterPassword(password);
         this.clickLoginButton();
     }
+
+    triggerErrorMessForField(fieldName) {
+        const element = fieldName === 'email'? this.emailField : this.passwordField;
+        element.focus();
+        element.blur();
+    }
+
+    verifyLoginButtonIsDisabled() {
+        this.logInButton.should('be.disabled');
+    }
+
+    verifyErrorMessForFieldIsVisible(fieldName) {
+        const element = fieldName === 'email'? this.emailField : this.passwordField;
+        element.should('be.visible');
+    }
+
+    verifyIncorrectEmailMessagesIsVisible() {
+        this.incorrectEmailMessage.should('be.visible');
+    }
+    
+    verifyWrongDataMessageIsVisible () {
+        this.wrongDataMessage.should('be.visible');
+    }  
 }
 
 export default new SignInForm();
