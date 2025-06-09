@@ -15,7 +15,6 @@ class GaragePage {
     get modelDropDown() {
         return cy.get('#addCarModel');
     }
-
     get mileageField() {
         return cy.get('#addCarMileage');
     }
@@ -28,9 +27,10 @@ class GaragePage {
         return cy.get('.modal-header');
     }
      
-    get addedCarNames() {
-        return cy.get('p.car-item')
+    get addedCarNames () {
+        return cy.get('p.car_name');
     }
+
     visit() {
         cy.visit('/panel/garage');
     }
@@ -40,6 +40,7 @@ class GaragePage {
         this.brandDropDown.select(brand);
         this.modelDropDown.select(model);
         this.mileageField.type(mileage);
+        this.submitAddingFormButton.click();
 
     }
 
