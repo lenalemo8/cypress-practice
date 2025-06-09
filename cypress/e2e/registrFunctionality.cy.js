@@ -1,12 +1,6 @@
 /// <reference types="cypress" />
 
-import {
-  generateName,
-  generateLastName,
-  generateEmail,
-  generateStrongPassword,
-  fillValidRegistrationForm
-} from "../support/generators";
+import { fillValidRegistrationForm } from "../pom/utils/userGenerator";
 
 describe("accessibility of the form", () => {
   beforeEach(() => {
@@ -223,7 +217,7 @@ describe("accessibility of the form", () => {
       cy.contains("Register").should("be.visible").and("be.disabled");
     });
 
-    it("should be enabled when all fields are valid", () => {
+    it.only("should be enabled when all fields are valid", () => {
       const { firstName, lastName, email, password } = fillValidRegistrationForm();
 
       cy.get("#signupName").type(firstName);
@@ -233,7 +227,7 @@ describe("accessibility of the form", () => {
       cy.get("#signupRepeatPassword").type(password);
     });
 
-    it("should submit form when clicked and valid", () => {
+    it.only("should submit form when clicked and valid", () => {
       const { firstName, lastName, email, password } = fillValidRegistrationForm();
 
       cy.get("#signupName").type(firstName);

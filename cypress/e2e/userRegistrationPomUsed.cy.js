@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 import { registrationPage } from "../pom/pages/RegistrationPage";
-import { fillValidRegistrationForm } from "../support/generators/userGenerator";
+import { fillValidRegistrationForm } from "../pom/utils/userGenerator";
 
   
 

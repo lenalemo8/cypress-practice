@@ -1,4 +1,4 @@
-import GaragePage from "../pom/pages/GaragePage";
+import GaragePage from "../pom/forms/GarageAddCar";
 import HomePage from"../pom/pages/HomePage";
 import SignInForm from "../pom/forms/SignInForm";
 
