@@ -1,48 +1,54 @@
+import GaragePage from "./GaragePage";
+
 class FuelExpensesPage {
 
     get navSidebarExpenses () {
         return cy.get('a[routerlink="expenses"].sidebar_btn');
     }
 
-    get addExpenseHeader() {
+    get addExpenseHeader () {
         return cy.get('.modal-header');
 
     }
 
-    get pageHeader() {
+    get pageHeader () {
 
         return cy.contains('h1', 'Fuel expenses');
     }
 
-    get addExpenseButton() {
+    get carSelectDropdownButton () {
+        return cy.get('#carSelectDropdown') 
+    }
+
+    get addAnExpenseButton () {
         return cy.get('div.panel-page_heading .btn-primary');
     }
 
-    get vehicleBrandDropdown() {
+    get vehicleBrandDropdown () {
         return cy.get('#addExpenseCar');
     }
 
-    get addReportDatePicker() {
+    get addReportDatePicker () {
         return cy.get('.btn.date-picker-toggle');
     }
 
-    get setCurrentDate() {
+    get setCurrentDate () {
         return cy.get('div[ngbdatepickerdayview].bg-primary');
     }
 
-    get mileageField() {
+    get mileageField () {
         return cy.get('#addExpenseMileage');
     }
 
-    get numberLitersField() {
+    get numberLitersField () {
         return cy.get('#addExpenseLiters');
     }
 
-    get numberTotalField() {
+    get numberTotalField () {
         return cy.get('#addExpenseTotal');
     }
 
-    get submitExpenseButton() {
+    get submitExpenseButton () {
         return cy.get('div.modal-content .btn-primary');
     }
 
@@ -63,7 +69,11 @@ class FuelExpensesPage {
 
     verifyLastAddedExpense (carName) {
         this.addedCarNames.first().should('have.text', carName)
-}
+    }
+
+
+
+
 }
 
 export default new FuelExpensesPage();

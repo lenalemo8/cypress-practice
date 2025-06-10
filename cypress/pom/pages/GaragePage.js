@@ -1,3 +1,6 @@
+import HomePage from "./HomePage";
+import SignInForm from "../forms/SignInForm";
+
 class GaragePage {
 
     get pageHeader() {
@@ -31,8 +34,18 @@ class GaragePage {
         return cy.get('p.car_name');
     }
 
+    // get addFuelExpenseAtGarageButton () {
+    //     return cy.get('app-car .car_add-expense');
+    // }
+
     visit() {
         cy.visit('/panel/garage');
+    }
+
+    visitAsLogedUser() {
+        HomePage.visit();
+        HomePage.openSignInForm();
+        SignInForm.loginWithCredentials(Cypress.env('TEST_USER_EMAIL'), Cypress.env('TEST_USER_PASSWORD'));
     }
 
     addNewCar(brand, model, mileage) {

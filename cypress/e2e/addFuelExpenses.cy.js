@@ -1,18 +1,14 @@
 import FuelExpensesPage from "../pom/pages/FuelExpensesPage";
 import GaragePage from "../pom/pages/GaragePage";
-import HomePage from"../pom/pages/HomePage";
-import SignInForm from "../pom/forms/SignInForm";
 
 describe("Adding Fuel Expenses", () => {
 
   beforeEach(() => {
-    HomePage.visit();
-    HomePage.openSignInForm();
-    SignInForm.loginWithCredentials(Cypress.env('TEST_USER_EMAIL'), Cypress.env('TEST_USER_PASSWORD'));
+    GaragePage.visitAsLogedUser();
     GaragePage.pageHeader.should('be.visible');
 
-  it("Open Fuel Expenses ", () => {
-    FuelExpensesPage.addExpense('Audi A6' ,)
+  it("Add fuel expense for garage car", () => {
+    
   });
   })
 
