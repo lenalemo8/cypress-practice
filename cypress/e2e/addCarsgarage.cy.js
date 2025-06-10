@@ -1,4 +1,4 @@
-import GaragePage from "../pom/forms/GarageAddCar";
+import GaragePage from "../pom/pages/GaragePage";
 import HomePage from"../pom/pages/HomePage";
 import SignInForm from "../pom/forms/SignInForm";
 
@@ -10,7 +10,6 @@ describe('Adding new cars', () => {
         HomePage.openSignInForm();
         SignInForm.loginWithCredentials(Cypress.env('TEST_USER_EMAIL'), Cypress.env('TEST_USER_PASSWORD'));
         GaragePage.pageHeader.should('be.visible');
-
     })
 
     it('Add [Audi] [A6] car ', () => {
