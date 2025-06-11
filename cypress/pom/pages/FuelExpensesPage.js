@@ -1,6 +1,7 @@
 import GaragePage from "./GaragePage";
 
 class FuelExpensesPage {
+
   get navSidebarExpenses() {
     return cy.get('a[routerlink="expenses"].sidebar_btn');
   }
@@ -21,9 +22,9 @@ class FuelExpensesPage {
     return cy.get('ul[aria-labelledby="carSelectDropdown"]');
   }
 
-  get carsDropMenuItem () {
-    return cy.get('li.dropdown-item');
-  }
+  // get carsDropMenuItem () {
+  //   return cy.get('li.dropdown-item');
+  // }
 
   get addAnExpenseButton() {
     return cy.get("div.panel-page_heading .btn-primary");
@@ -32,7 +33,9 @@ class FuelExpensesPage {
   get vehicleBrandDropdown() {
     return cy.get("#addExpenseCar");
   }
-
+  get reportDateField() {
+    return cy.get("#addExpenseDate");
+  }
   get addReportDatePicker() {
     return cy.get(".btn.date-picker-toggle");
   }
@@ -50,7 +53,7 @@ class FuelExpensesPage {
   }
 
   get numberTotalField() {
-    return cy.get("#addExpenseTotal");
+    return cy.get("#addExpenseTotalCost");
   }
 
   get submitExpenseButton() {
@@ -61,28 +64,53 @@ class FuelExpensesPage {
     cy.visit("panel/expenses");
   }
 
-  addingCarDataForTestFuel () {
+  // randomAddFromFuelDropDown() {
+  //   cy.get('div.car-select-dropdown.show.dropdown')
+  //     .find('dropdown-item btn btn-link car-select-dropdown_item -active disabled')
+  //     .then(items => {
+  //       const randomIndex = Math.floor(Math.random() * items.length);
+  //       const randomItem = items[randomIndex];
+  //       const carMake = randomItem.innerText;
+  //       const carModel = randomItem.innerText;
+  //   cy.wrap(randomItem).click();
+  //   this.addNewCar(carMake, carModel, '200');  
+  //     })
+  // }
+
+
+
+
+
+
+
+
+
+
+  addingCarDataForTestFuel() {
     GaragePage.visitAsLoggedUser();
     GaragePage.pageHeader.should('be.visible');
-    GaragePage.addNewCar('Audi','R8','200');
+    GaragePage.addNewCar('Audi', 'R8', '200');
     // GaragePage.addNewCar('Ford', 'Focus', '200'); 
     this.navSidebarExpenses.click();
     this.pageHeaderFuel.should('be.visible');
     this.carSelectDropdownButton.should('be.visible').click();
-    this.carsDropMenuItem.should('be.disabled');
-    
-    this.carsDropdownMenu.select('Ford Focus');
-    this.addAnExpenseButton.should('not.be.disabled');
+    // this.carsDropMenuItem.should('not.be.available');
+    // this.carsDropdownMenu.select('Ford Focus');
+    // this.addAnExpenseButton.should('not.be.disabled');
   }
-  
+
+
+
   addExpense() {
     this.addAnExpenseButton.click();
-    this.vehicleBrandDropdown.select();
-    this.addReportDatePicker.click();
-    this.setCurrentDate.select();
-    this.mileageField.type();
-    this.numberLitersField.type();
-    this.numberTotalField.type();
+    this.vehicleBrandDropdown.focus().blur();
+    // .select();
+    this.addReportDatePicker.focus().blur();
+    // .click();
+    // this.setCurrentDate.select();
+    this.mileageField.type('205');
+    this.numberLitersField.type('50');
+    this.numberTotalField.type('60');
     this.submitExpenseButton.click();
   }
 

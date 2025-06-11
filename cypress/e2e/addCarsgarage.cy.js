@@ -7,7 +7,7 @@ describe('Adding new cars', () => {
         GaragePage.pageHeader.should('be.visible');
     })
 
-    it.only('Add [Audi] [R8] car ', () => {
+    it('Add [Audi] [R8] car ', () => {
         GaragePage.addNewCar('Audi','R8','200');
         GaragePage.verifyLastAddedCar('Audi R8');
     });
@@ -31,6 +31,10 @@ describe('Adding new cars', () => {
         GaragePage.addNewCar('Fiat','Ducato','200');
         GaragePage.verifyLastAddedCar('Fiat Ducato');
     });
+
+    it.only('should add several cars and verify last added car', () => {
+        GaragePage.addMultipleCarsToGarage();
+    })
 
 })
 

@@ -1,5 +1,6 @@
 import HomePage from "./HomePage";
 import SignInForm from "../forms/SignInForm";
+import { cars } from "../../support/data/cars";
 
 class GaragePage {
 
@@ -59,6 +60,13 @@ class GaragePage {
 
     verifyLastAddedCar (carName) {
         this.addedCarNames.first().should('have.text', carName)
+    }
+
+    addMultipleCarsToGarage () {
+        cars.forEach(({ brand, model}) => {
+            this.addNewCar(brand, model, '200');
+            this.verifyLastAddedCar(`${brand} ${model}`);
+        })
     }
 
 }
