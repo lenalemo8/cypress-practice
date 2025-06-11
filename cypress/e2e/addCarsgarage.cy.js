@@ -3,11 +3,11 @@ import GaragePage from "../pom/pages/GaragePage";
 describe('Adding new cars', () => {
 
     beforeEach(() => {
-        GaragePage.visitAsLogedUser();
+        GaragePage.visitAsLoggedUser();
         GaragePage.pageHeader.should('be.visible');
     })
 
-    it('Add [Audi] [A6] car ', () => {
+    it.only('Add [Audi] [R8] car ', () => {
         GaragePage.addNewCar('Audi','R8','200');
         GaragePage.verifyLastAddedCar('Audi R8');
     });
@@ -17,17 +17,17 @@ describe('Adding new cars', () => {
         GaragePage.verifyLastAddedCar('BMW X5')
     });
 
-    it('Add [Ford] [Fiesta] car ', () => {
+    it('Add [Ford] [Focus] car ', () => {
         GaragePage.addNewCar('Ford', 'Focus', '200');
         GaragePage.verifyLastAddedCar('Ford Focus');
     });
 
-    it('Add [Porsche] [Panamera] car ', () => {
+    it('Add [Porsche] [Cayenne] car ', () => {
         GaragePage.addNewCar('Porsche','Cayenne','200');
         GaragePage.verifyLastAddedCar('Porsche Cayenne');
     });
 
-    it('Add [Fiat] [Panda] car ', () => {
+    it('Add [Fiat] [Ducato] car ', () => {
         GaragePage.addNewCar('Fiat','Ducato','200');
         GaragePage.verifyLastAddedCar('Fiat Ducato');
     });

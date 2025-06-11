@@ -42,7 +42,7 @@ class GaragePage {
         cy.visit('/panel/garage');
     }
 
-    visitAsLogedUser() {
+    visitAsLoggedUser() {
         HomePage.visit();
         HomePage.openSignInForm();
         SignInForm.loginWithCredentials(Cypress.env('TEST_USER_EMAIL'), Cypress.env('TEST_USER_PASSWORD'));

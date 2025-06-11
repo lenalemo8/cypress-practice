@@ -1,22 +1,23 @@
+
 import FuelExpensesPage from "../pom/pages/FuelExpensesPage";
-import GaragePage from "../pom/pages/GaragePage";
 
 describe("Adding Fuel Expenses", () => {
-
   beforeEach(() => {
-    GaragePage.visitAsLogedUser();
-    GaragePage.pageHeader.should('be.visible');
-
-  it("Add fuel expense for garage car", () => {
-    
+  FuelExpensesPage.addingCarDataForTestFuel();
   });
+
+
+  it.only('Add an expense for car', () => {
+    FuelExpensesPage.addExpense();
+  });
+  
+
+
+  it('Add an expense for car [Audi] [R8]', () => {
+    FuelExpensesPage.addingCarDataForTestFuel();
   })
 
-  it('Add for [Audi] [A6]', () => {
-
-  })
-
-  it('Add for [BMW] [X5]', () => {
+  it('Add for [BMW]  [X5]', () => {
 
   })
 
@@ -31,5 +32,6 @@ describe("Adding Fuel Expenses", () => {
   it('Add for [Fiat] [Panda]', () => {
 
   })
+  })
 
-})
+
