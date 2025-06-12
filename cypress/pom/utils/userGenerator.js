@@ -1,6 +1,6 @@
-import { generateName, generateLastName } from "./nameGenerator";
-import { generateEmail } from "./emailGenerator";
-import { generateStrongPassword } from "./passwordGenerator";
+import { generateName, generateLastName } from './nameGenerator';
+import { generateEmail } from './emailGenerator';
+import { generateStrongPassword } from './passwordGenerator';
 
 export function fillValidRegistrationForm() {
   const firstName = generateName();

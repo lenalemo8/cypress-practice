@@ -21,5 +21,5 @@ export const cars = [
   { brand: 'Fiat', model: 'Ducato' },
   { brand: 'Fiat', model: 'Panda' },
   { brand: 'Fiat', model: 'Punto' },
-  { brand: 'Fiat', model: 'Scudo' }
+  { brand: 'Fiat', model: 'Scudo' },
 ];
