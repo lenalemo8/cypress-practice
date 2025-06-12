@@ -1,4 +1,5 @@
 import GaragePage from "./GaragePage";
+import { incrementFieldValueString } from "../utils/increasedMileage";
 
 class FuelExpensesPage {
 
@@ -21,10 +22,6 @@ class FuelExpensesPage {
   get carsDropdownMenu() {
     return cy.get('ul[aria-labelledby="carSelectDropdown"]');
   }
-
-  // get carsDropMenuItem () {
-  //   return cy.get('li.dropdown-item');
-  // }
 
   get addAnExpenseButton() {
     return cy.get("div.panel-page_heading .btn-primary");
@@ -60,65 +57,67 @@ class FuelExpensesPage {
     return cy.get("div.modal-content .btn-primary");
   }
 
+  get fuelExpensesCarsDropdownMenu() {
+    return cy.get("div .car-select-dropdown");
+  }
+
+  get modalHederAddExpense() {
+    return cy.get(".modal-header");
+  }
+
   visit() {
     cy.visit("panel/expenses");
   }
 
-  // randomAddFromFuelDropDown() {
-  //   cy.get('div.car-select-dropdown.show.dropdown')
-  //     .find('dropdown-item btn btn-link car-select-dropdown_item -active disabled')
-  //     .then(items => {
-  //       const randomIndex = Math.floor(Math.random() * items.length);
-  //       const randomItem = items[randomIndex];
-  //       const carMake = randomItem.innerText;
-  //       const carModel = randomItem.innerText;
-  //   cy.wrap(randomItem).click();
-  //   this.addNewCar(carMake, carModel, '200');  
-  //     })
-  // }
-
-
-
-
-
-
-
-
-
-
   addingCarDataForTestFuel() {
     GaragePage.visitAsLoggedUser();
-    GaragePage.pageHeader.should('be.visible');
-    GaragePage.addNewCar('Audi', 'R8', '200');
-    // GaragePage.addNewCar('Ford', 'Focus', '200'); 
+    GaragePage.garagePageHeader.should("be.visible");
+    GaragePage.addMultipleCarsToGarage();
     this.navSidebarExpenses.click();
+    this.pageHeaderFuel.should("be.visible");
+    this.carSelectDropdownButton.should("be.visible");
+    this.randomAddedCarForExpense();
+  }
+
+  randomAddedCarForExpense() {
+    this.fuelExpensesCarsDropdownMenu
+      .find(".dropdown-item")
+      .should("be.visible")
+      .then((items) => {
+        const randomIndex = Math.floor(Math.random() * items.length);
+        const randomItem = items[randomIndex];
+        const expectedCarName = randomItem.innerText;
+        cy.wrap(randomItem).click();
+        cy.wrap(expectedCarName).as('selectedCarName');
+        // cy.log(expectedCarName);
+      })
+  }
+   
+  openAddExpenseModal() {
     this.pageHeaderFuel.should('be.visible');
-    this.carSelectDropdownButton.should('be.visible').click();
-    // this.carsDropMenuItem.should('not.be.available');
-    // this.carsDropdownMenu.select('Ford Focus');
-    // this.addAnExpenseButton.should('not.be.disabled');
+    this.submitExpenseButton.should("be.disabled").click();
+    this.modalHederAddExpense.should("be.visible");
   }
 
-
-
-  addExpense() {
-    this.addAnExpenseButton.click();
-    this.vehicleBrandDropdown.focus().blur();
-    // .select();
-    this.addReportDatePicker.focus().blur();
-    // .click();
-    // this.setCurrentDate.select();
-    this.mileageField.type('205');
-    this.numberLitersField.type('50');
-    this.numberTotalField.type('60');
-    this.submitExpenseButton.click();
-  }
-
-  verifyLastAddedExpense(carName) {
-    this.addedCarNames.first().should("have.text", carName);
-  }
-
-
+  verifyDefaultExpenseFormState(formattedDate) {
+  cy.get('@selectedCarName').then((carName) => {
+    this.vehicleBrandDropdown
+      .should("contain.text", carName)
+      .should("be.visible");
+    this.reportDateField
+      .should("be.visible")
+      .and("have.value", formattedDate);
+  });
 }
+
+  fillExpenseFormWithValidData() {
+  this.mileageField.invoke('val').then((val) => {
+    const newValue = incrementFieldValueString(val);
+    this.mileageField.clear().type(newValue).should('have.value', newValue);
+    this.numberLitersField.clear().type('50').should('have.value', '50');
+    this.numberTotalField.clear().type('55').should('have.value', '55');
+    this.submitExpenseButton.should('be.visible').click();
+   });
+}  
 
 export default new FuelExpensesPage();

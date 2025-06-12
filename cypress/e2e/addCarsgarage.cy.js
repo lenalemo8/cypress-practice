@@ -4,7 +4,7 @@ describe('Adding new cars', () => {
 
     beforeEach(() => {
         GaragePage.visitAsLoggedUser();
-        GaragePage.pageHeader.should('be.visible');
+        GaragePage.garagePageHeader.should('be.visible');
     })
 
     it('Add [Audi] [R8] car ', () => {

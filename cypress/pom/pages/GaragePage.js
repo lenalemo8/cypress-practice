@@ -1,6 +1,6 @@
 import HomePage from "./HomePage";
 import SignInForm from "../forms/SignInForm";
-import { cars } from "../../support/data/cars";
+import { cars } from "../../support/data/carsShortList";
 
 class GaragePage {
 
@@ -41,6 +41,10 @@ class GaragePage {
 
     visit() {
         cy.visit('/panel/garage');
+    }
+
+    garagePageHeader () {
+        this.pageHeader.should('be.visible')
     }
 
     visitAsLoggedUser() {
