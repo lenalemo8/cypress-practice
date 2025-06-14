@@ -1,82 +1,34 @@
-describe('API testing', () => {
-  let email;
-  const password = 'Qwerty12345';
-  let user;
-  let sid;
+/// <reference types="cypress" />
+import SignInForm from '../pom/forms/SignInForm';
+import HomePage from '../pom/pages/HomePage';
 
-  beforeEach(() => {
-    const timestamp = Date.now();
-    email = `Lena${timestamp}@test.com`;
-    user = {
-      name: "Helen",
-      lastName: "Elkin",
-      email,
-      password,
-      repeatPassword: password
-    };
+describe('Intercept', () => {
 
-    return cy.request('POST', '/api/auth/signup', user).then((res) => {
-      const cookies = res.headers['set-cookie'];
-      sid = cookies[0].split(';')[0];
-    });
-  });
-    
-it('Signin. Login by registered email, password', () => {
-    cy.request('POST','/api/auth/signin',{email,password})
-    .then((loginResponse) => {
-      expect(loginResponse.status).to.eq(200);
-      expect(loginResponse.body).to.have.property('status', 'ok');
-      expect(loginResponse.body.data).to.have.property('userId');
-      cy.log(`Login successful with userId: ${loginResponse.body.data.userId}`);
-    });
+    it('Intercept query', () => {
+    cy.intercept('GET', '/api/users/profile').as('getProfile');
+    HomePage.visit();
+    HomePage.openSignInForm();
+    SignInForm.loginWithCredentials('Yellowscarf8@gmail.com', 'Qwerty123');
+    cy.get('a.sidebar_btn.-profile').click();
+    cy.get('h1').should('have.text', 'Profile')
+    cy.wait('@getProfile').its('response.statusCode').should('eq',200);
+  })
 
-  it('should return profile data for authenticated user', () => {
-    cy.request({
-      method: 'GET',
-      url: '/api/users/profile',
-      headers: {
-        Cookie: sid
-      }
-    }).then((response) => {
-      expect(response.status).to.eq(200);
-      expect(response.body).to.have.property('status', 'ok');
-      expect(response.body.data).to.include({
-        name: user.name,
-        lastName: user.lastName
-      });
-      expect(response.body.data).to.have.property('userId');
-      expect(response.body.data).to.have.property('photoFilename');
-    });
-  });
-
-   it('should change password and allow login with new password', () => {
-    const oldPassword = 'Qwerty12345';
-    const newPassword = 'Qwerty12345!';
-
-    cy.request({
-      method: 'PUT',
-      url: '/api/users/password',
-      headers: {
-        Cookie: `sid=${sid}`
-      },
-      body: {
-        oldPassword,
-        password: newPassword,
-        repeatPassword: newPassword
-      }
-    }).then((res) => {
-      expect(res.status).to.eq(200);
-      expect(res.body.status).to.eq('ok');
-    });
-
-    // Перевірка, що можна увійти з новим паролем
-    cy.request('POST', '/api/auth/signin', {
-      email,
-      password: newPassword
-    }).then((loginRes) => {
-      expect(loginRes.status).to.eq(200);
-      expect(loginRes.body.status).to.eq('ok');
-    });
-})
-});
+    it('Fake Profile Name', () => {
+    const fakeResponce = {
+    "status": "ok",
+    "data": {
+        "userId": 226970,
+        "photoFilename": "default-user.png",
+        "name": "Polar",
+        "lastName": "Bear"
+    }
+} 
+cy.intercept('GET', '/api/users/profile', fakeResponce);
+    HomePage.visit();
+    HomePage.openSignInForm();
+    SignInForm.loginWithCredentials('Yellowscarf8@gmail.com', 'Qwerty123');
+    cy.get('a.sidebar_btn.-profile').click();
+    cy.get('h1').should('have.text', 'Profile');
+  })
 })

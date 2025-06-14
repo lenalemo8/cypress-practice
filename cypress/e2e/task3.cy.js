@@ -1,6 +1,8 @@
 /// <reference types="cypress" />
+import 'cypress-plugin-api';
 
-describe('API tests qauto.forstudy.space ', () => {
+
+describe('API tests qauto.forstudy.space with Plugin', () => {
 
   let email;
   const password = 'Qwerty12345';
@@ -18,7 +20,7 @@ describe('API tests qauto.forstudy.space ', () => {
       repeatPassword: password
     };
 
-    return cy.request('POST', '/api/auth/signup', user).then((res) => {
+    return cy.api('POST', '/api/auth/signup', user).then((res) => {
       const cookies = res.headers['set-cookie'];
       sid = cookies.find(c => c.startsWith('sid=')).split(';')[0];
       cy.log(`Generated email: ${email}`);
@@ -28,7 +30,7 @@ describe('API tests qauto.forstudy.space ', () => {
   });
     
     it('Signin. Login by registered email, password', () => {
-      cy.request('POST','/api/auth/signin',{email,password})
+      cy.api('POST','/api/auth/signin',{email,password})
         .then((loginResponse) => {
           expect(loginResponse.status).to.eq(200);
           expect(loginResponse.body).to.have.property('status', 'ok');
@@ -38,7 +40,7 @@ describe('API tests qauto.forstudy.space ', () => {
       })
 
     it('Should return profile data for authenticated user', () => {
-      cy.request({
+      cy.api({
         method: 'GET',
         url: '/api/users/profile',
         headers: {
@@ -60,7 +62,7 @@ describe('API tests qauto.forstudy.space ', () => {
       const oldPassword = 'Qwerty12345';
       const newPassword = 'Qwerty12345!';
 
-      cy.request({
+      cy.api({
         method: 'PUT',
         url: '/api/users/password',
         headers: {
@@ -76,7 +78,7 @@ describe('API tests qauto.forstudy.space ', () => {
       expect(res.status).to.eq(200);
       expect(res.body.status).to.eq('ok');
       
-      cy.request('POST', '/api/auth/signin', {
+      cy.api('POST', '/api/auth/signin', {
         email,
         password: newPassword
       })
@@ -93,7 +95,7 @@ describe('API tests qauto.forstudy.space ', () => {
       mileage: 122
     };
 
-    cy.request({
+    cy.api({
       method: 'POST',
       url: '/api/cars',
       headers: {
@@ -114,7 +116,7 @@ describe('API tests qauto.forstudy.space ', () => {
       expect(res.body.data).to.have.property('logo');
       expect(res.body.data).to.have.property('id');
       const carId = res.body.data.id;
-      cy.request({
+      cy.api({
         method: 'DELETE',
         url: `/api/cars/${carId}`,
         headers: {
@@ -126,6 +128,5 @@ describe('API tests qauto.forstudy.space ', () => {
         expect(deleteRes.body.data.carId).to.eq(carId);
       });
     });
-  })
 })
-
+})
