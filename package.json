@@ -9,7 +9,6 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write ."
-  
   },
   "repository": {
     "type": "git",
@@ -24,6 +23,7 @@
   "description": "",
   "devDependencies": {
     "cypress": "^14.4.1",
+    "cypress-plugin-api": "^2.11.2",
     "eslint": "^9.28.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-cypress": "^5.1.0",
